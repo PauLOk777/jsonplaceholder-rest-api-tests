@@ -13,6 +13,12 @@ public class Post {
 
     }
 
+    public Post(long userId, String title, String body) {
+        this.userId = userId;
+        this.title = title;
+        this.body = body;
+    }
+
     public Post(long userId, long id, String title, String body) {
         this.userId = userId;
         this.id = id;

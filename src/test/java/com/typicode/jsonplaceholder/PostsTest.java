@@ -17,12 +17,12 @@ public class PostsTest {
     private static final String ID = "id";
 
     private static final int POST_ID = 1;
-    private static final int NOT_EXISTING_POST_ID = 101;
+    private static final int NEXT_ID = 101;
     private static final int USER_ID = 1;
     private static final String MY_TITLE = "My title";
     private static final String MY_BODY = "My body";
     private static final Post EXISTING_POST = new Post(USER_ID, POST_ID, MY_TITLE, MY_BODY);
-    private static final Post NEW_POST = new Post(USER_ID, NOT_EXISTING_POST_ID, MY_TITLE, MY_BODY);
+    private static final Post NEW_POST = new Post(USER_ID, MY_TITLE, MY_BODY);
 
     private static final int STATUS_CODE_OK = 200;
     private static final int STATUS_CODE_CREATED = 201;
@@ -43,8 +43,8 @@ public class PostsTest {
     }
 
     @Test
-    public void shouldReturnNotFoundStatusWhenEnterNotExistingId() {
-        getPostById(NOT_EXISTING_POST_ID)
+    public void shouldReturnNotFoundStatusWhenEnterNonExistingId() {
+        getPostById(NEXT_ID)
                 .then()
                 .statusCode(STATUS_NOT_FOUND);
     }
@@ -53,7 +53,7 @@ public class PostsTest {
     public void shouldReturnCreatedStatusAndCreateNewPostWithSameId() {
         createPost(NEW_POST)
                 .then()
-                .body(ID, equalTo(NOT_EXISTING_POST_ID))
+                .body(ID, equalTo(NEXT_ID))
                 .and()
                 .statusCode(STATUS_CODE_CREATED);
     }
