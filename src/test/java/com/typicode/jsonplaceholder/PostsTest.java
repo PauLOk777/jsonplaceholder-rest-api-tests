@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 @RunWith(SerenityRunner.class)
 public class PostsTest {
 
-    private static final int POST_ID = 1;
+    private static final int POST_ID = 1000;
     private static final int NEXT_ID = 101;
     private static final int USER_ID = 1;
     private static final String MY_TITLE = "My title";
