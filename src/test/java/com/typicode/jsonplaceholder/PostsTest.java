@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class PostsTest {
 
     private static final int POST_ID = 1;
-    private static final int NEXT_ID = 10;
+    private static final int NEXT_ID = 101;
     private static final int USER_ID = 1;
     private static final String MY_TITLE = "My title";
     private static final String MY_BODY = "My body";
@@ -28,7 +28,7 @@ public class PostsTest {
 
     private static final int STATUS_CODE_OK = 200;
     private static final int STATUS_CODE_CREATED = 201;
-    private static final int STATUS_NOT_FOUND = 404;
+    private static final int STATUS_NOT_FOUND = 405;
 
     @Before
     public void setUp() {
