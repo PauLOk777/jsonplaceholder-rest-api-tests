@@ -1,5 +1,6 @@
-package com.typicode.jsonplaceholder;
+package com.typicode.jsonplaceholder.endpoints;
 
+import com.typicode.jsonplaceholder.config.Config;
 import com.typicode.jsonplaceholder.models.Post;
 import io.restassured.response.Response;
 
@@ -7,15 +8,11 @@ import static io.restassured.RestAssured.given;
 
 public class PostsEndPoint {
 
-    private static final String ID = "id";
-    private static final String POSTS = "/posts";
-    private static final String POST_BY_ID = POSTS + "/{" + ID + "}";
-
     public static Response getPostById(long id) {
         return given()
-                .pathParam(ID, id)
+                .pathParam(Config.ID, id)
                 .when()
-                .get(POST_BY_ID)
+                .get(Config.POST_BY_ID)
                 .then()
                 .extract()
                 .response();
@@ -25,7 +22,7 @@ public class PostsEndPoint {
         return given()
                 .body(post)
                 .when()
-                .post(POSTS)
+                .post(Config.POSTS)
                 .then()
                 .extract()
                 .response();
@@ -33,10 +30,10 @@ public class PostsEndPoint {
 
     public static Response modifyPost(Post post) {
         return given()
-                .pathParam(ID, post.getId())
+                .pathParam(Config.ID, post.getId())
                 .body(post)
                 .when()
-                .put(POST_BY_ID)
+                .put(Config.POST_BY_ID)
                 .then()
                 .extract()
                 .response();
@@ -44,9 +41,9 @@ public class PostsEndPoint {
 
     public static Response deletePost(long id) {
         return given()
-                .pathParam(ID, id)
+                .pathParam(Config.ID, id)
                 .when()
-                .delete(POST_BY_ID)
+                .delete(Config.POST_BY_ID)
                 .then()
                 .extract()
                 .response();

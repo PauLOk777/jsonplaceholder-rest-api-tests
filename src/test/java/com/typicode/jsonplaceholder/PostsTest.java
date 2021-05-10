@@ -1,20 +1,22 @@
 package com.typicode.jsonplaceholder;
 
+import com.typicode.jsonplaceholder.config.Config;
 import com.typicode.jsonplaceholder.models.Post;
 import io.restassured.RestAssured;
 import org.junit.Before;
 import org.junit.Test;
+import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.Title;
+import org.junit.runner.RunWith;
 
-import static com.typicode.jsonplaceholder.PostsEndPoint.getPostById;
-import static com.typicode.jsonplaceholder.PostsEndPoint.createPost;
-import static com.typicode.jsonplaceholder.PostsEndPoint.modifyPost;
-import static com.typicode.jsonplaceholder.PostsEndPoint.deletePost;
+import static com.typicode.jsonplaceholder.endpoints.PostsEndPoint.getPostById;
+import static com.typicode.jsonplaceholder.endpoints.PostsEndPoint.createPost;
+import static com.typicode.jsonplaceholder.endpoints.PostsEndPoint.modifyPost;
+import static com.typicode.jsonplaceholder.endpoints.PostsEndPoint.deletePost;
 import static org.hamcrest.Matchers.equalTo;
 
+@RunWith(SerenityRunner.class)
 public class PostsTest {
-
-    private static final String BASE_URI = "https://jsonplaceholder.typicode.com";
-    private static final String ID = "id";
 
     private static final int POST_ID = 1;
     private static final int NEXT_ID = 101;
@@ -30,19 +32,21 @@ public class PostsTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = BASE_URI;
+        RestAssured.baseURI = Config.BASE_URI;
     }
 
     @Test
+    @Title("Should return 200 code (status ok) when try to get post by existing id")
     public void shouldReturnOkStatusAndPostWithSameId() {
         getPostById(POST_ID)
                 .then()
-                .body(ID, equalTo(POST_ID))
+                .body(Config.ID, equalTo(POST_ID))
                 .and()
                 .statusCode(STATUS_CODE_OK);
     }
 
     @Test
+    @Title("Should return 404 code (not found status) when try to get post with non existing id")
     public void shouldReturnNotFoundStatusWhenEnterNonExistingId() {
         getPostById(NEXT_ID)
                 .then()
@@ -50,24 +54,27 @@ public class PostsTest {
     }
 
     @Test
+    @Title("Should create new post and return 201 code (created status)")
     public void shouldReturnCreatedStatusAndCreateNewPostWithSameId() {
         createPost(NEW_POST)
                 .then()
-                .body(ID, equalTo(NEXT_ID))
+                .body(Config.ID, equalTo(NEXT_ID))
                 .and()
                 .statusCode(STATUS_CODE_CREATED);
     }
 
     @Test
+    @Title("Should modify existing post and return 200 code (ok status)")
     public void shouldReturnOkStatusWhenModifyingExistingProduct() {
         modifyPost(EXISTING_POST)
                 .then()
-                .body(ID, equalTo(POST_ID))
+                .body(Config.ID, equalTo(POST_ID))
                 .and()
                 .statusCode(STATUS_CODE_OK);
     }
 
     @Test
+    @Title("Should delete post and return 200 code (ok status)")
     public void shouldReturnOkStatusAndDeleteExistingPost() {
         deletePost(POST_ID)
                 .then()
