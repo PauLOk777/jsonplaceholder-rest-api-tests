@@ -28,7 +28,7 @@ public class PostsTest {
 
     private static final int STATUS_CODE_OK = 200;
     private static final int STATUS_CODE_CREATED = 201;
-    private static final int STATUS_NOT_FOUND = 405;
+    private static final int STATUS_NOT_FOUND = 404;
 
     @Before
     public void setUp() {
